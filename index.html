@@ -3,41 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3D Model of My School</title>
+    <title>School 3D Model</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
-<body style="margin: 0; overflow: hidden;">
+<body>
     <script>
-        // Create scene
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        const renderer = new THREE.WebGLRenderer();
+        // 1️⃣ Setup Scene
+        var scene = new THREE.Scene();
+        var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        var renderer = new THREE.WebGLRenderer();
         renderer.setSize(window.innerWidth, window.innerHeight);
         document.body.appendChild(renderer.domElement);
 
-        // Create a basic cube to represent the school
-        const geometry = new THREE.BoxGeometry(5, 3, 2); // Width, Height, Depth
-        const material = new THREE.MeshBasicMaterial({ color: 0x00aaff, wireframe: true });
-        const schoolBuilding = new THREE.Mesh(geometry, material);
-        scene.add(schoolBuilding);
+        // 2️⃣ Create the School Building (Simple Box)
+        var geometry = new THREE.BoxGeometry(10, 6, 15); // Width, Height, Depth
+        var material = new THREE.MeshBasicMaterial({ color: 0x00aaff, wireframe: true });
+        var school = new THREE.Mesh(geometry, material);
+        scene.add(school);
 
-        // Position the camera
-        camera.position.z = 5;
+        // 3️⃣ Position the Camera
+        camera.position.z = 20;
 
-        // Animation loop
+        // 4️⃣ Animation Loop
         function animate() {
             requestAnimationFrame(animate);
-            schoolBuilding.rotation.y += 0.01; // Rotate the model
+            school.rotation.y += 0.01; // Rotate for better view
             renderer.render(scene, camera);
         }
         animate();
-
-        // Adjust canvas size on window resize
-        window.addEventListener('resize', () => {
-            renderer.setSize(window.innerWidth, window.innerHeight);
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-        });
     </script>
 </body>
 </html>

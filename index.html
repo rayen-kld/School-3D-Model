@@ -31,6 +31,43 @@
             renderer.render(scene, camera);
         }
         animate();
+    // Add Floors (3 levels)
+for (var i = 0; i < 3; i++) {
+    var floorGeometry = new THREE.BoxGeometry(10, 2, 15); // Width, Height, Depth
+    var floorMaterial = new THREE.MeshBasicMaterial({ color: 0xaaaaaa, wireframe: true });
+    var floorMesh = new THREE.Mesh(floorGeometry, floorMaterial);
+    
+    floorMesh.position.y = i * 2; // Stacking floors on top of each other
+    scene.add(floorMesh);
+}
+// Add Rooms (Dividing each floor into classrooms, hall, etc.)
+var roomSize = 3; // Approximate size of each classroom
+for (var i = 0; i < 3; i++) { // For each floor
+    for (var j = -4; j <= 4; j += roomSize) { // Position rooms along width
+        var roomGeometry = new THREE.BoxGeometry(3, 2, 5); // Room size
+        var roomMaterial = new THREE.MeshBasicMaterial({ color: 0x00ff00, wireframe: true });
+        var roomMesh = new THREE.Mesh(roomGeometry, roomMaterial);
+        
+        roomMesh.position.set(j, i * 2, 0); // Arrange rooms
+        scene.add(roomMesh);
+    }
+}
+// Add Windows (4 sides)
+var windowGeometry = new THREE.BoxGeometry(1, 1, 0.1); // Small window size
+var windowMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.5 });
+
+var windowPositions = [
+    [-3, 2, 7], [3, 2, 7], // Front (North)
+    [-3, 2, -7], [3, 2, -7], // Back (South)
+    [-5, 2, 0], [5, 2, 0]  // Sides (East, West)
+];
+
+windowPositions.forEach(pos => {
+    var windowMesh = new THREE.Mesh(windowGeometry, windowMaterial);
+    windowMesh.position.set(pos[0], pos[1], pos[2]); // Place windows
+    scene.add(windowMesh);
+});
+
     </script>
 </body>
 </html>
